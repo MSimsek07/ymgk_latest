@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 
@@ -23,12 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_(%59!ihe2*2k(p&qxk+nzczr(bm%7_j6sfet)+v0*k2p)=z1l'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['ymgk-latest.onrender.com', '44.226.145.213', '54.187.200.255', '34.213.214.55']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
 
 
 # Application definition
@@ -54,7 +59,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = env.list('CORS_ALLOWED_ORIGINS_DEPLOY')
+CORS_ALLOWED_WHITELIST_DEPLOY = env.list('CORS_ALLOWED_WHITELIST_DEPLOY')
 
 ROOT_URLCONF = 'chaos_project.urls'
 
@@ -128,3 +134,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
