@@ -132,6 +132,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOW_ALL_ORIGINS = env.get('CORS_ALLOWED_ORIGINS_DEPLOY')
+CORS_ALLOW_ALL_ORIGINS = environ.get('CORS_ALLOWED_ORIGINS_DEPLOY')
 CORS_ALLOWED_WHITELIST_DEPLOY = env.list('CORS_ALLOWED_WHITELIST_DEPLOY')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
